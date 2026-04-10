@@ -1,0 +1,16 @@
+Script started on Fri Apr 10 18:08:14 2026
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+gcc image_pthread.c -o image_pthread -lpthread -lm
+gcc image_omp.c -o image_omp -fopenmp -lm
+srun ./image_pthread pic1.jpg edge
+srun ./image_omp pic1.jpg edge
+exit
+exit]0;ammarahm@r1n43.darwin:~/CISC372_picProject[?1034h[ammarahm@r1n43 CISC372_picProject]$ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ gcc image_pthread.c -o image_pthread -lpthread -lm
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ gcc image_omp.c -o image_omp -fopenmp -lm
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ srun ./image_pthread pic1.jpg edge
+Took 6 seconds
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ srun ./image_omp pic1.jpg edge
+Took 7 seconds
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ exit
+exit
