@@ -1,0 +1,136 @@
+Script started on Fri 10 Apr 2026 05:57:33 PM EDT
+salloc --ntasks=1 --cpus-per-task=4 --partition=standard
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+srun ./image_pthread pic1.jpg edge
+srun ./image_omp pic1.jpg edge
+exit
+exit]0;ammarahm@login00.darwin:~/CISC372_picProject[?1034h[(ea-cisc372-silber:ammarahm)@login00.darwin CISC372_picProject]$ salloc --ntasks=1 --cpus-per-task=4 --partition=standard
+salloc: Granted job allocation 6183406
+salloc: Waiting for resource configuration
+salloc: Nodes r1n43 are ready for job
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+srun ./image_pthread pic1.jpg edge
+srun ./image_omp pic1.jpg edge
+exit
+exit]0;ammarahm@r1n43.darwin:~/CISC372_picProject[?1034h[ammarahm@r1n43 CISC372_picProject]$ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ srun ./image_pthread pic1.jpg edge
+Took 6 seconds
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ srun ./image_omp pic1.jpg edge
+Took 6 seconds
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ exit
+logout
+salloc: Relinquishing job allocation 6183406
+]0;ammarahm@login00.darwin:~/CISC372_picProject[(ea-cisc372-silber:ammarahm)@login00.darwin CISC372_picProject]$ git add output.txt
+]0;ammarahm@login00.darwin:~/CISC372_picProject[(ea-cisc372-silber:ammarahm)@login00.darwin CISC372_picProject]$ git commit -m "Update output.txt with salloc proof"
+[main e4d5574] Update output.txt with salloc proof
+ Committer: Ammar Ahmad <ammarahm@r0login0.localdomain.hpc.udel.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 9 deletions(-)
+ rewrite output.txt (100%)
+]0;ammarahm@login00.darwin:~/CISC372_picProject[(ea-cisc372-silber:ammarahm)@login00.darwin CISC372_picProject]$ git push
+warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+Username for 'https://github.com': AmmarAhmad05
+Password for 'https://AmmarAhmad05@github.com': 
+Counting objects: 5, done.
+Delta compression using up to 128 threads.
+Compressing objects:  50% (1/2)   Compressing objects: 100% (2/2)   Compressing objects: 100% (2/2), done.
+Writing objects:  33% (1/3)   Writing objects:  66% (2/3)   Writing objects: 100% (3/3)   Writing objects: 100% (3/3), 293 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/1)[Kremote: Resolving deltas: 100% (1/1)[Kremote: Resolving deltas: 100% (1/1), completed with 1 local object.[K
+To https://github.com/AmmarAhmad05/CISC372_picProject.git
+   39d6ebe..e4d5574  main -> main
+]0;ammarahm@login00.darwin:~/CISC372_picProject[(ea-cisc372-silber:ammarahm)@login00.darwin CISC372_picProject]$ salloc --cpus-per-task=4 --time=00:10:00
+salloc: error: All jobs must explicitly request a partition
+salloc: error: cli_filter plugin terminated with error
+]0;ammarahm@login00.darwin:~/CISC372_picProject[(ea-cisc372-silber:ammarahm)@login00.darwin CISC372_picProject]$ salloc --ntasks=1 --cpus-per-task=4 --partition=standard --time=00:10:00
+salloc: Granted job allocation 6183408
+salloc: Waiting for resource configuration
+salloc: Nodes r1n43 are ready for job
+script output.txt
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+gcc image_pthread.c -o image_pthread -lpthread -lm
+gcc image_omp.c -o image_omp -fopenmp -lm
+echo "Running pthread version"
+srun ./image_pthread pic1.jpg edge
+echo "Running OpenMP version"
+srun ./image_omp pic1.jpg edge
+exit
+exit]0;ammarahm@r1n43.darwin:~/CISC372_picProject[?1034h[ammarahm@r1n43 CISC372_picProject]$ script output.txt
+Script started, file is output.txt
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+gcc image_pthread.c -o image_pthread -lpthread -lm
+gcc image_omp.c -o image_omp -fopenmp -lm
+echo "Running pthread version"
+srun ./image_pthread pic1.jpg edge
+echo "Running OpenMP version"
+srun ./image_omp pic1.jpg edge
+exit
+exit]0;ammarahm@r1n43.darwin:~/CISC372_picProject[?1034h[ammarahm@r1n43 CISC372_picProject]$ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ gcc image_pthread.c -o image_pthread -lpthread -lm
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ gcc image_omp.c -o image_omp -fopenmp -lm
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ echo "Running pthread version"
+Running pthread version
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ srun ./image_pthread pic1.jpg edge
+Took 6 seconds
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ echo "Running OpenMP version"
+Running OpenMP version
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ srun ./image_omp pic1.jpg edge
+Took 7 seconds
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ exit
+exit
+Script done, file is output.txt
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ cat output.txt
+Script started on Fri Apr 10 17:59:38 2026
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+gcc image_pthread.c -o image_pthread -lpthread -lm
+gcc image_omp.c -o image_omp -fopenmp -lm
+echo "Running pthread version"
+srun ./image_pthread pic1.jpg edge
+echo "Running OpenMP version"
+srun ./image_omp pic1.jpg edge
+exit
+exit]0;ammarahm@r1n43.darwin:~/CISC372_picProject[?1034h[ammarahm@r1n43 CISC372_picProject]$ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ gcc image_pthread.c -o image_pthread -lpthread -lm
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ gcc image_omp.c -o image_omp -fopenmp -lm
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ echo "Running pthread version"
+Running pthread version
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ srun ./image_pthread pic1.jpg edge
+Took 6 seconds
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ echo "Running OpenMP version"
+Running OpenMP version
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ srun ./image_omp pic1.jpg edge
+Took 7 seconds
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ exit
+exit
+
+Script done on Fri Apr 10 17:59:53 2026
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ ls
+README.md  image.c  image.h  [0m[38;5;34mimage_omp[0m  image_omp.c  [38;5;34mimage_pthread[0m  image_pthread.c  makefile  [38;5;13moutput.png[0m  output.txt  [38;5;13mpic1.jpg[0m  [38;5;13mpic2.jpg[0m  [38;5;13mpic3.jpg[0m  [38;5;13mpic4.jpg[0m  stb_image.h  stb_image_write.h
+]0;ammarahm@r1n43.darwin:~/CISC372_picProject[ammarahm@r1n43 CISC372_picProject]$ lscat output.txt
+Script started on Fri Apr 10 17:59:38 2026
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+gcc image_pthread.c -o image_pthread -lpthread -lm
+gcc image_omp.c -o image_omp -fopenmp 
