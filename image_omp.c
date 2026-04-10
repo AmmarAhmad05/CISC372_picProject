@@ -12,8 +12,6 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
-//An array of kernel matrices to be used for image convolution.  
-//The indexes of these match the enumeration from the header file. ie. algorithms[BLUR] returns the kernel corresponding to a box blur.
 Matrix algorithms[]={
     {{0,-1,0},{-1,4,-1},{0,-1,0}},
     {{0,-1,0},{-1,5,-1},{0,-1,0}},
@@ -23,17 +21,10 @@ Matrix algorithms[]={
     {{0,0,0},{0,1,0},{0,0,0}}
 };
 
-//getPixelValue - Computes the value of a specific pixel on a specific channel using the selected convolution kernel
-//Paramters: srcImage:  An Image struct populated with the image being convoluted
-//           x: The x coordinate of the pixel
-//          y: The y coordinate of the pixel
-//          bit: The color channel being manipulated
-//          algorithm: The 3x3 kernel matrix to use for the convolution
-//Returns: The new value for this x,y pixel and bit channel
+
 uint8_t getPixelValue(Image* srcImage,int x,int y,int bit,Matrix algorithm){
     int px,mx,py,my,i,span;
     span=srcImage->width*srcImage->bpp;
-    // for the edge pixes, just reuse the edge pixel
     px=x+1; py=y+1; mx=x-1; my=y-1;
     if (mx<0) mx=0;
     if (my<0) my=0;
@@ -52,19 +43,11 @@ uint8_t getPixelValue(Image* srcImage,int x,int y,int bit,Matrix algorithm){
     return result;
 }
 
-//convolute:  Applies a kernel matrix to an image using OpenMP
-//Parameters: srcImage: The image being convoluted
-//            destImage: A pointer to a pre-allocated structure to receive the convoluted image
-//            algorithm: The kernel matrix to use for the convolution
-//Returns: Nothing
+
 void convolute(Image* srcImage,Image* destImage,Matrix algorithm){
     int row,pix,bit,span;
     span=srcImage->bpp*srcImage->bpp;
 
-    //Parallelize the outer loop across rows using OpenMP
-    //Each iteration writes to a unique location in destImage, so no race conditions
-    //row is private by default as the loop variable; pix and bit are private since
-    //they are declared in the parallel region's scope
     #pragma omp parallel for private(pix,bit) schedule(static)
     for (row=0;row<srcImage->height;row++){
         for (pix=0;pix<srcImage->width;pix++){
@@ -75,16 +58,12 @@ void convolute(Image* srcImage,Image* destImage,Matrix algorithm){
     }
 }
 
-//Usage: Prints usage information for the program
-//Returns: -1
+
 int Usage(){
     printf("Usage: image <filename> <type>\n\twhere type is one of (edge,sharpen,blur,gauss,emboss,identity)\n");
     return -1;
 }
 
-//GetKernelType: Converts the string name of a convolution into a value from the KernelTypes enumeration
-//Parameters: type: A string representation of the type
-//Returns: an appropriate entry from the KernelTypes enumeration, defaults to IDENTITY, which does nothing but copy the image.
 enum KernelTypes GetKernelType(char* type){
     if (!strcmp(type,"edge")) return EDGE;
     else if (!strcmp(type,"sharpen")) return SHARPEN;
@@ -94,8 +73,7 @@ enum KernelTypes GetKernelType(char* type){
     else return IDENTITY;
 }
 
-//main:
-//argv is expected to take 2 arguments.  First is the source file name (can be jpg, png, bmp, tga).  Second is the lower case name of the algorithm.
+
 int main(int argc,char** argv){
     long t1,t2;
     t1=time(NULL);
